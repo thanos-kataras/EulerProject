@@ -8,16 +8,35 @@ namespace EulerProject.Libraries
 {
     class MathUtils
     {
-        public static List<Int32> NumberPermutations(Int32 number)
+        public static List<Int32> NumberRotations(Int32 number)
         {
-            List<Int32> permutations = new List<int>();
+            List<Int32> rotations = new List<int>();
+            rotations.Add(number);
 
             char[] cdigits = number.ToString().ToCharArray();
             int[] digits = Array.ConvertAll(cdigits, c => (int)Char.GetNumericValue(c)); ;
-            Array.Sort(digits);
-            permutations.Add(ConcatDigits(digits));
+            for (int i = 0; i < digits.Length - 1; i++)
+            {
+                for (int j = 0; j < digits.Length - 1; j++)
+                {
+                    int temp;
+                    if (j == 0)
+                    {
+                        temp = digits[j];
+                        digits[j] = digits[digits.Length - 1];
+                        digits[digits.Length - 1] = temp;
+                    }
+                    else
+                    {
+                        temp = digits[j];
+                        digits[j] = digits[j - 1];
+                        digits[j - 1] = temp;
+                    }
+                }
+                rotations.Add(ConcatDigits(digits));
+            }
 
-            return permutations;
+            return rotations;
         }
 
         private static Int32 ConcatDigits(int[] cdigits)
