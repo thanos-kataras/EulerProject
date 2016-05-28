@@ -15,22 +15,21 @@ namespace EulerProject.Problems
 
         public void Run()
         {
-            int circPrimes = 0;
-            for (int i = 2; i < 1000000; i++)
+            int sum = 0;
+            for (int i=0; i < 1000000; i++)
             {
-                bool isFullPrime = true;
-                foreach (int num in MathUtils.NumberRotations(i))
+                String dec = i.ToString();
+                String bin = Convert.ToString(i, 2);
+                if (StringUtils.IsPalindrome(dec) &&
+                    StringUtils.IsPalindrome(bin))
                 {
-                    if (!Primes.IsPrime(num))
-                    {
-                        isFullPrime = false;
-                        break;
-                    }
+                    sum += i;
+                    Console.WriteLine("Decimal: " + dec + "Binary: " + bin);
                 }
-                if (isFullPrime)
-                    circPrimes++;
             }
-            this.result = circPrimes.ToString();
+            this.result = sum.ToString();
         }
+
+        
     }
 }
