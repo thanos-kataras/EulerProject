@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EulerProject.Libraries;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,21 +39,11 @@ namespace EulerProject.Problems
                 outcome += (currNumber*index).ToString();
                 index++;
             }
-            if (outcome.Length==9 && IsPandigital(outcome)) {
+            if (outcome.Length==9 && MathUtils.IsPandigital(Int32.Parse(outcome))) {
                 return Int32.Parse(outcome);
             }
 
             return 0;
-        }
-
-        private bool IsPandigital(string outcome)
-        {
-            for (int i = 1; i<=9; i++)
-            {
-                if (!outcome.Contains(i.ToString()))
-                    return false;
-            }
-            return true;
         }
     }
 }

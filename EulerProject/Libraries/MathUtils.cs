@@ -39,6 +39,17 @@ namespace EulerProject.Libraries
             return rotations;
         }
 
+        public static bool IsPandigital(Int32 number)
+        {
+            string numberStr = number.ToString();
+            for (int i = 1; i <= numberStr.Length; i++)
+            {
+                if (!numberStr.Contains(i.ToString()))
+                    return false;
+            }
+            return true;
+        }
+
         private static Int32 ConcatDigits(int[] cdigits)
         {
             StringBuilder sb = new StringBuilder("");
