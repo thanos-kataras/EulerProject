@@ -22,5 +22,20 @@ namespace EulerProject.Libraries
 
             return true;
         }
+
+        public static int CalculateWordValue(string word)
+        {
+            int wordSum = 0;
+            foreach (char c in word)
+            {
+                wordSum += GetCharValue(c);
+            }
+            return wordSum;
+        }
+
+        private static int GetCharValue(char c)
+        {
+            return char.ToUpper(c) - 64;
+        }
     }
 }
