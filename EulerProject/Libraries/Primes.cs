@@ -8,7 +8,7 @@ namespace EulerProject.Libraries
 {
     class Primes
     {
-        public static bool IsPrime(Int32 candidate, bool caching = false)
+        public static bool IsPrime(long candidate, bool caching = false)
         {
             // Test whether the parameter is a prime number.
             if ((candidate & 1) == 0)
