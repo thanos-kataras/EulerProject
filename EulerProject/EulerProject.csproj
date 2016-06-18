@@ -50,6 +50,7 @@
     <Compile Include="Libraries\MathUtils.cs" />
     <Compile Include="Libraries\Primes.cs" />
     <Compile Include="Libraries\StringUtils.cs" />
+    <Compile Include="Problems\Problem28.cs" />
     <Compile Include="Problems\Problem34.cs" />
     <Compile Include="Problems\Problem35.cs" />
     <Compile Include="Problems\Problem36.cs" />
