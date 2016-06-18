@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,6 +51,36 @@ namespace EulerProject.Libraries
             return true;
         }
 
+        /// <summary>
+        /// Generates triangle numbers
+        /// </summary>
+        /// <param name="n">The n in n(n+1) / 2</param>
+        /// <returns>The nth triagonal number</returns>
+        public static BigInteger GenerateTriangleNumber(long n)
+        {
+            return (n * (n + 1) / 2);
+        }
+
+        /// <summary>
+        /// Generates pentagonal numbers
+        /// </summary>
+        /// <param name="n">The n in n(n+1) / 2</param>
+        /// <returns>The nth triagonal number</returns>
+        public static BigInteger GeneratePentagonalNumber(long n)
+        {
+            return (n * (3 * n - 1) / 2);
+        }
+
+        /// <summary>
+        /// Generates Hexagonal numbers
+        /// </summary>
+        /// <param name="n">The n in n(2n+1)</param>
+        /// <returns>The nth triagonal number</returns>
+        public static BigInteger GenerateHexagonalNumber(int n)
+        {
+            return n * (2 * n - 1);
+        }
+
         private static Int32 ConcatDigits(int[] cdigits)
         {
             StringBuilder sb = new StringBuilder("");
@@ -59,5 +90,7 @@ namespace EulerProject.Libraries
             }
             return Int32.Parse(sb.ToString());
         }
+
+
     }
 }
