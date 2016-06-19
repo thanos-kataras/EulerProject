@@ -50,7 +50,7 @@
     <Compile Include="Libraries\MathUtils.cs" />
     <Compile Include="Libraries\Primes.cs" />
     <Compile Include="Libraries\StringUtils.cs" />
-    <Compile Include="Problems\Problem18.cs" />
+    <Compile Include="Problems\Problem28.cs" />
     <Compile Include="Problems\Problem34.cs" />
     <Compile Include="Problems\Problem35.cs" />
     <Compile Include="Problems\Problem36.cs" />
@@ -63,7 +63,6 @@
     <Compile Include="Problems\Problem46.cs" />
     <Compile Include="Problems\Problem47.cs" />
     <Compile Include="Problems\Problem27.cs" />
-    <Compile Include="Problems\Problem67.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,9 +71,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="FileResources\p018_routes.txt" />
     <Content Include="FileResources\p042_words.txt" />
-    <Content Include="FileResources\p067_routes.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
