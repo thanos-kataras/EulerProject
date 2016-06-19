@@ -14,7 +14,11 @@ namespace EulerProject.Problems
 
         public void Run()
         {
-            throw new NotImplementedException();
+            int[][] diagonalArray = new int[1001][];
+            for (int i = 0; i<1001; i++ )
+            {
+                diagonalArray[i] = new int[1001];
+            }
         }
     }
 }
