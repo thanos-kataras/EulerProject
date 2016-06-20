@@ -40,6 +40,22 @@ namespace EulerProject.Libraries
             return rotations;
         }
 
+        public static int MaxCommonDenominator(List<int> numbers)
+        {
+            int mcd = 1;
+            for(int i = numbers[0]; i > 0; i--)
+            {
+                foreach(int number in numbers)
+                {
+                    if (number % i != 0)
+                        continue;
+                }
+                mcd = i;
+                break;
+            }
+            return mcd;
+        }
+
         public static bool IsPandigital(Int32 number)
         {
             string numberStr = number.ToString();
