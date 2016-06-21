@@ -51,12 +51,14 @@
     <Compile Include="Libraries\Primes.cs" />
     <Compile Include="Libraries\StringUtils.cs" />
     <Compile Include="Problems\Problem28.cs" />
+    <Compile Include="Problems\Problem32.cs" />
     <Compile Include="Problems\Problem33.cs" />
     <Compile Include="Problems\Problem34.cs" />
     <Compile Include="Problems\Problem35.cs" />
     <Compile Include="Problems\Problem36.cs" />
     <Compile Include="Problems\Problem37.cs" />
     <Compile Include="Problems\Problem38.cs" />
+    <Compile Include="Problems\Problem39.cs" />
     <Compile Include="Problems\Problem40.cs" />
     <Compile Include="Problems\Problem41.cs" />
     <Compile Include="Problems\Problem42.cs" />
