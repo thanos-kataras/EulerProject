@@ -11,7 +11,6 @@ namespace EulerProject.Problems_51_60
         private string[] lines;
         public Problem54() : base(54)
         {
-            //this.lines = new string[] { "1C 1D 1H 2D 3H 1C 1D 1H 2D 3H"};
             this.lines = System.IO.File.ReadAllLines(@"..\..\FileResources\p054_poker.txt");
         }
 
@@ -39,7 +38,7 @@ namespace EulerProject.Problems_51_60
         private class Hand
         {
             private List<Card> handCards = new List<Card>();
-            private int highNumber = 0, onePairHigh = 0;
+            private int onePairHigh = 0;
 
             public List<Card> HandCards { get{ return this.handCards; } }
 
@@ -57,83 +56,166 @@ namespace EulerProject.Problems_51_60
 
             public HandResult getResult()
             {
-                Card previous = null;
-                HandResult maxResult = HandResult.HighCard;
+                if (IsRoyalFlush())
+                    return HandResult.RoyalFlush;
+                else if (IsStraightFlush())
+                    return HandResult.StraightFlush;
+                else if (IsFourOfAKind())
+                    return HandResult.FourOfAKind;
+                else if (IsFullHouse())
+                    return HandResult.FullHouse;
+                else if (IsFlush())
+                    return HandResult.Flush;
+                else if (IsStraight())
+                    return HandResult.Straight;
+                else if (IsThreeOfAKind())
+                    return HandResult.ThreeOfAKind;
+                else if (IsTwoPairs())
+                    return HandResult.TwoPairs;
+                else if (IsOnePair())
+                    return HandResult.OnePair;
 
-                int sameConsecutive = 1, consecutives = 1, sameColor = 1;
+                return HandResult.HighCard;
+            }
 
-                for(int i = 0; i < 5; i++)
+            private bool IsRoyalFlush()
+            {
+                if (handCards[4].Numeric != 14)
+                    return false;
+                for(int i=3; i>=0; i--)
                 {
-                    Card card = handCards[i];
-                    highNumber = card.Numeric;
-                    if (previous != null)
+                    if (handCards[i + 1].Numeric != handCards[i].Numeric + 1)
+                        return false;
+                    if (handCards[i + 1].Color != handCards[i].Color)
+                        return false;
+                }
+                return true;
+            }
+
+            private bool IsStraightFlush()
+            {
+                for (int i = 3; i >= 0; i--)
+                {
+                    if (handCards[i + 1].Numeric != handCards[i].Numeric + 1)
+                        return false;
+                    if (handCards[i + 1].Color != handCards[i].Color)
+                        return false;
+                }
+                return true;
+            }
+
+            private bool IsFourOfAKind()
+            {
+                int consecSame=1;
+                Card previous = null;
+                foreach (Card card in handCards)
+                {
+                    if (previous == null)
+                        previous = card;
+                    else
                     {
-                        if (previous.Color == card.Color)
-                            sameColor++;
                         if (previous.Numeric == card.Numeric)
-                            sameConsecutive++;
-                        if (previous.Numeric == card.Numeric - 1)
-                            consecutives++;
-
-                        if (sameConsecutive == 5 || previous.Numeric != card.Numeric)
-                        {
-                            switch (sameConsecutive)
-                            {
-                                case 1:
-                                    break;
-                                case 2:
-                                    switch (maxResult)
-                                    {
-                                        case HandResult.HighCard:
-                                            maxResult = HandResult.OnePair;
-                                            this.onePairHigh = previous.Numeric;
-                                            break;
-                                        case HandResult.OnePair:
-                                            maxResult = HandResult.TwoPairs;
-                                            break;
-                                        case HandResult.ThreeOfAKind:
-                                            maxResult = HandResult.FullHouse;
-                                            break;
-                                    }
-                                    break;
-                                case 3:
-                                    switch (maxResult)
-                                    {
-                                        case HandResult.HighCard:
-                                            maxResult = HandResult.ThreeOfAKind;
-                                            break;
-                                        case HandResult.OnePair:
-                                            maxResult = HandResult.FullHouse;
-                                            break;
-                                    }
-                                    break;
-                                case 4:
-                                    maxResult = HandResult.FourOfAKind;
-                                    break;
-                            }
-                            sameConsecutive = 0;
-                        }
+                            consecSame++;
+                        else if (consecSame!=4)
+                            consecSame = 1;
+                        previous = card;
                     }
-                    
-                    if (sameColor == 5)
-                    {
-                        maxResult = maxResult > HandResult.Flush ? maxResult : HandResult.Flush;
-                    }
-
-                    if (consecutives >= 5)
-                    {
-                        if (sameColor == 5)
-                            maxResult = HandResult.StraightFlush;
-                        else
-                        {
-                            maxResult = maxResult > HandResult.Straight ? maxResult : HandResult.Straight;
-                        }
-                    }
-
-                    previous = card;
                 }
 
-                return maxResult;
+                if (consecSame == 4)
+                    return true;
+                else
+                    return false;       
+            }
+
+            private bool IsFullHouse()
+            {
+                return (handCards[0].Numeric == handCards[1].Numeric
+                    && handCards[2].Numeric == handCards[3].Numeric
+                    && handCards[3].Numeric == handCards[4].Numeric) ||
+                    (handCards[0].Numeric == handCards[1].Numeric
+                    && handCards[1].Numeric == handCards[2].Numeric
+                    && handCards[3].Numeric == handCards[4].Numeric);
+            }
+
+            private bool IsFlush()
+            {
+                for (int i=0;i<4;i++)
+                {
+                    if (handCards[i].Color != handCards[i + 1].Color)
+                        return false;
+                }
+                return true;
+            }
+
+            private bool IsStraight()
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (handCards[i].Numeric != handCards[i + 1].Numeric -1)
+                        return false;
+                }
+                return true;
+            }
+
+            private bool IsThreeOfAKind()
+            {
+                int consecSame = 1;
+                Card previous = null;
+                foreach (Card card in handCards)
+                {
+                    if (previous == null)
+                        previous = card;
+                    else
+                    {
+                        if (previous.Numeric == card.Numeric)
+                            consecSame++;
+                        else if (consecSame!=3)
+                            consecSame = 1;
+                        previous = card;
+                    }
+                }
+
+                if (consecSame == 3)
+                    return true;
+                else
+                    return false;
+            }
+
+            private bool IsTwoPairs()
+            {
+                int pairs = 0;
+                for (int i = 0; i < 4; i++)
+                {
+                    if (handCards[i].Numeric == handCards[i + 1].Numeric)
+                    {
+                        pairs++;
+                        //skip next for checking
+                        i++;
+                    }
+                }
+                if (pairs == 2)
+                    return true;
+                return false;
+            }
+
+            private bool IsOnePair()
+            {
+                int pairs = 0;
+                for (int i = 0; i < 4; i++)
+                {
+                    if (handCards[i].Numeric == handCards[i + 1].Numeric)
+                    {
+                        this.onePairHigh = handCards[i].Numeric;
+                        pairs++;
+                        //skip next for checking
+                        i++;
+                    }
+                }
+                if (pairs == 1)
+                    return true;
+                this.onePairHigh = 0;
+                return false;
             }
 
             public int CompareHands(Hand hand)
@@ -157,8 +239,21 @@ namespace EulerProject.Problems_51_60
                         case HandResult.OnePair:
                             if (this.OnePairHigh > hand.OnePairHigh)
                                 return 1;
+                            else if (this.OnePairHigh == hand.OnePairHigh)
+                            {
+                                List<Card> remHighPair1 = this.HandCards.Where(x => x.Numeric != this.OnePairHigh).ToList();
+                                List<Card> remHighPair2 = hand.HandCards.Where(x => x.Numeric != this.OnePairHigh).ToList();
+                                for (int i = 2; i > 0; i--)
+                                {
+                                    if (remHighPair1[i].Numeric > remHighPair2[i].Numeric)
+                                        return 1;
+                                    else if (remHighPair1[i].Numeric < remHighPair2[i].Numeric)
+                                        return -1;
+                                }
+                            }
                             else
                                 return -1;
+                            break;
                     }
 
                     return 0;
@@ -166,19 +261,6 @@ namespace EulerProject.Problems_51_60
                 else
                     return -1;
             }
-        }
-
-        private enum HandResult {
-            HighCard = 0,
-            OnePair = 1,
-            TwoPairs = 2,
-            ThreeOfAKind = 3,
-            Straight = 4,
-            Flush = 5,
-            FullHouse = 6,
-            FourOfAKind = 7,
-            StraightFlush = 8,
-            RoyalFlush = 9
         }
 
         private class Card : IComparable<Card>
@@ -243,6 +325,19 @@ namespace EulerProject.Problems_51_60
             }
         }
 
+        private enum HandResult
+        {
+            HighCard = 0,
+            OnePair = 1,
+            TwoPairs = 2,
+            ThreeOfAKind = 3,
+            Straight = 4,
+            Flush = 5,
+            FullHouse = 6,
+            FourOfAKind = 7,
+            StraightFlush = 8,
+            RoyalFlush = 9
+        }
         private enum CardColor
         {
             Spades, Hearts, Diamonds, Clubs
