@@ -8,6 +8,13 @@ namespace EulerProject.Libraries
 {
     class StringUtils
     {
+        public static string Reverse(string str)
+        { 
+            char[] charArray = str.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+
         public static bool IsPalindrome(String checkStr)
         {
             int half = Int32.Parse(
