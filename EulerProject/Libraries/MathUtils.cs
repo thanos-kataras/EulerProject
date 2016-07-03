@@ -107,6 +107,18 @@ namespace EulerProject.Libraries
             return Int32.Parse(sb.ToString());
         }
 
+        public static List<int> IntToList(BigInteger integer)
+        {
+            BigInteger temp = integer;
+            List<int> array = new List<int>();
+            do
+            {
+                array.Add((int)(temp % 10));
+                temp /= 10;
+            } while (temp > 0);
+
+            return array;
+        }
 
     }
 }
