@@ -40,6 +40,36 @@ namespace EulerProject.Libraries
             return rotations;
         }
 
+        internal static long[] AddFractions(long[] fraction1, long[] fraction2)
+        {
+            long[] resultFraction = new long[2];
+            long lcm = LeastCommonMultiplier(fraction1[1], fraction2[1]);
+            resultFraction[0] = fraction1[0] * (lcm / fraction1[1]) + fraction2[0] * (lcm / fraction2[1]);
+            resultFraction[1] = lcm;
+            return resultFraction;
+        }
+
+        public static long LeastCommonMultiplier(long a, long b)
+        {
+            long top = a * b;
+            top = top < 0 ? (-1) * top : top;
+            return top / MaxCommonDenominator(a, b);
+        }
+
+        private static long MaxCommonDenominator(long a, long b)
+        {
+            long t = b;
+            b = b < a ? a: b;
+            a = a == b ? t : a;
+            while (b != 0)
+            {
+                t = b;
+                b = a % b;
+                a = t;
+            }
+            return a;
+        }
+
         public static int MaxCommonDenominator(List<int> numbers)
         {
             int mcd = 1;
