@@ -40,10 +40,10 @@ namespace EulerProject.Libraries
             return rotations;
         }
 
-        internal static long[] AddFractions(long[] fraction1, long[] fraction2)
+        internal static BigInteger[] AddFractions(BigInteger[] fraction1, BigInteger[] fraction2)
         {
-            long[] resultFraction = new long[2];
-            long lcm = LeastCommonMultiplier(fraction1[1], fraction2[1]);
+            BigInteger[] resultFraction = new BigInteger[2];
+            BigInteger lcm = LeastCommonMultiplier(fraction1[1], fraction2[1]);
             resultFraction[0] = fraction1[0] * (lcm / fraction1[1]) + fraction2[0] * (lcm / fraction2[1]);
             resultFraction[1] = lcm;
             return resultFraction;
@@ -56,10 +56,31 @@ namespace EulerProject.Libraries
             return top / MaxCommonDenominator(a, b);
         }
 
+        public static BigInteger LeastCommonMultiplier(BigInteger a, BigInteger b)
+        {
+            BigInteger top = a * b;
+            top = top < 0 ? (-1) * top : top;
+            return top / MaxCommonDenominator(a, b);
+        }
+
         private static long MaxCommonDenominator(long a, long b)
         {
             long t = b;
             b = b < a ? a: b;
+            a = a == b ? t : a;
+            while (b != 0)
+            {
+                t = b;
+                b = a % b;
+                a = t;
+            }
+            return a;
+        }
+
+        private static BigInteger MaxCommonDenominator(BigInteger a, BigInteger b)
+        {
+            BigInteger t = b;
+            b = b < a ? a : b;
             a = a == b ? t : a;
             while (b != 0)
             {
