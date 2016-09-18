@@ -40,7 +40,7 @@ namespace EulerProject.Problems_51_60
                     count++;
             }
 
-            Console.WriteLine("Count = {0}", count);
+            this.result = count.ToString();
         }
 
         private BigInteger[] CalcLatestPartial(BigInteger[] latestPartial)
