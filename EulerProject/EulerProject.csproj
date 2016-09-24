@@ -77,6 +77,7 @@
     <Compile Include="Problems 51-60\Problem56.cs" />
     <Compile Include="Problems 51-60\Problem57.cs" />
     <Compile Include="Problems 51-60\Problem58.cs" />
+    <Compile Include="Problems 51-60\Problem59.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -87,6 +88,7 @@
   <ItemGroup>
     <Content Include="FileResources\p042_words.txt" />
     <Content Include="FileResources\p054_poker.txt" />
+    <Content Include="FileResources\p059_cipher.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
